@@ -16,18 +16,28 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.title = "My card";
-    this.description = "Description of my card";
+    this.description = "Default description";
     this.image = "";
     this.alt = "";
     this.link = "";
     this.button = "";
+    this.fancy = false;
+    this.buttontext = "Details";
+    this.backgroundcolor = "orange";
   }
 
   static get styles() {
     return css`
       :host {
-        display: block;
-      }
+        display: inline-block;
+    :host([fancy]) {
+  display: block;
+  background-color: pink;
+  border: 2px solid fuchsia;
+  box-shadow: 10px 5px 5px red;
+}
+        }
+      
           .card {
   max-width: 400px;
   border: 1px solid;
@@ -35,6 +45,7 @@ export class MyCard extends LitElement {
   margin: 16px;
   padding: 16px;
   display: inline-block;
+  background-color: var(--background-color, orange);
 }
 
 .card.fancy {
@@ -106,10 +117,11 @@ a.button {
     `;
   }
   
+
   render() {
     return html`
     <div class="card">
-  <h2 class="card-title">${this.title}</h2>
+  <h2 class="card-title"><slot name="title">${this.title}</slot></h2>
 
   <p class="card-text">
     ${this.description}
@@ -125,6 +137,12 @@ a.button {
             </a>`
           : html``}
       </div>
+      <details ?open="${this.fancy}">
+  <summary>Description</summary>
+  <div>
+    <slot>${this.description}</slot>
+  </div>
+</details>
     `;
   }
 
@@ -135,60 +153,10 @@ a.button {
       alt: { type: String },
       link: { type: String },
       button: { type: String },
+      fancy: { type: Boolean, reflect: true },
+      buttontext: { type: String },
+      backgroundcolor: { type: String }
     };
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    this.setupEventListeners();
-  }
-
-  setupEventListeners() {
-    const duplicate = this.renderRoot.querySelector('.duplicate');
-    if (duplicate) {
-      duplicate.addEventListener('click', (event) => {
-        const cards = this.renderRoot.querySelectorAll('#cardlist .card');
-        if (cards.length >= 10) return; 
-        
-        const newCard = this.renderRoot.querySelector('.card').cloneNode(true);
-        this.renderRoot.querySelector('#cardlist').appendChild(newCard);
-      });
-    }
-
-    const titleBtn = this.renderRoot.querySelector('.title');
-    if (titleBtn) {
-      titleBtn.addEventListener('click', (event) => {
-        var cardtitle = this.renderRoot.querySelector('#cardlist .card .card-title');
-        cardtitle.innerHTML = "school rox";
-      });
-    }
-
-    const imgChange = this.renderRoot.querySelector('.img-change');
-    if (imgChange) {
-      imgChange.addEventListener('click', (event) => {
-        var cardimage = this.renderRoot.querySelector("img");
-        cardimage.src = "https://github.com/elmsln.png";
-      });
-    }
-
-    const bgChange = this.renderRoot.querySelector('#bg-change');
-    if (bgChange) {
-      bgChange.addEventListener('click', (event) => {
-        const cards = this.renderRoot.querySelectorAll('#cardlist .card');
-        cards.forEach(card => card.classList.toggle('fancy'));
-      });
-    }
-
-    const deleteBtn = this.renderRoot.querySelector('#delete');
-    if (deleteBtn) {
-      deleteBtn.addEventListener('click', (event) => {
-        const cards = this.renderRoot.querySelectorAll('#cardlist .card');
-        if (cards.length <= 1) return;
-        
-        var card = this.renderRoot.querySelector('#cardlist .card:last-child');
-        card.remove();
-      });
-    }
   }
 }
 globalThis.customElements.define(MyCard.tag, MyCard);
