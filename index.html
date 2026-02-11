@@ -19,6 +19,41 @@
     polaris-chip {
       margin: 16px;
     }
+
+    my-card.first-card {
+      margin: 16px;
+      --my-card-title-background-color: orange;
+      --my-card-title-text-color: green;
+      --my-card-background-color: white;
+    }
+
+    my-card.second-card {
+      margin: 16px;
+      --my-card-title-background-color: orange;
+      --my-card-title-text-color: green;
+      --my-card-background-color: blue;
+    }
+
+    my-card.third-card {
+      margin: 16px;
+      --my-card-title-background-color: orange;
+      --my-card-title-text-color: green;
+      --my-card-background-color: red;
+    }
+
+    my-card.fourth-card {
+      margin: 16px;
+      --my-card-title-background-color: black;
+      --my-card-title-text-color: gold;
+      --my-card-background-color: black;
+    }
+
+    my-card.fifth-card {
+      margin: 16px;
+      --my-card-title-background-color: orange;
+      --my-card-title-text-color: green;
+      --my-card-background-color: white;
+    }
   </style>
   <title>polaris-chip / my-card</title>
 </head>
@@ -39,6 +74,8 @@
   <h1>my-card</h1>
 
 <my-card
+  class="first-card"
+  fancy="true"
   title="Shaquille O'Neal"
   description="Shaq is a former NBA player who has made content used for memes and gifs."
   image="https://www.bing.com/th/id/OIP.9Lnu3M2abxZOy1oRgbfwsAHaEK?w=383&h=211&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
@@ -50,6 +87,7 @@
 ></my-card>
 
 <my-card
+class="second-card"
   fancy="true"
   title="Who is this?"
   description="Campus news, events, and student resources ."
@@ -61,6 +99,7 @@
 ></my-card>
 
 <my-card
+class="third-card"
   title="Canes is mid"
   description="Its not that good."
   image="https://logos-world.net/wp-content/uploads/2023/11/Raising-Canes-Logo.png"
@@ -70,6 +109,8 @@
 ></my-card>
 
 <my-card
+class="fourth-card"
+
   title="My Favorite Sport is football"
   description="Football is fun."
   image="https://e0.365dm.com/16/07/2048x1152/nfl-james-harrison-pittsburg_3749783.jpg"
@@ -79,6 +120,8 @@
 ></my-card>
 
 <my-card
+class="fifth-card"
+fancy="true"
   title="I couldnt find a picture for this one"
   description="no picture card."
   link="https://psu.edu/"

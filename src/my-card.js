@@ -22,41 +22,48 @@ export class MyCard extends LitElement {
     this.link = "";
     this.button = "";
     this.fancy = false;
-    this.buttontext = "Details";
-    this.backgroundcolor = "orange";
+    this.backgroundcolor = "";
   }
 
   static get styles() {
     return css`
       :host {
         display: inline-block;
-    :host([fancy]) {
-  display: block;
-  background-color: pink;
-  border: 2px solid fuchsia;
-  box-shadow: 10px 5px 5px red;
-}
-        }
+        --my-card-bg: var(--my-card-bg, #ffffff);
+        --my-card-title-bg: var(--my-card-title-bg, #ffe08a);
+        --my-card-title-color: var(--my-card-title-color, #111);
+        --my-card-border: var(--my-card-border, 1px solid #000);
+      }
+
+    
+    :host([fancy]) .card {
+        background-color: var(--my-card-fancy-bg, pink);
+        border: 2px solid fuchsia;
+        box-shadow: 10px 5px 5px rgba(255, 0, 0, 0.35);
+      }
+  
       
-          .card {
-  max-width: 400px;
-  border: 1px solid;
-  border-radius: 12px;
-  margin: 16px;
-  padding: 16px;
-  display: inline-block;
-  background-color: var(--background-color, orange);
-}
+           .card {
+        max-width: 400px;
+        border: 1px solid #000;
+        border-radius: 12px;
+        padding: 16px;
+        background-color: var(--my-card-background-color, #fff);
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
+      }
 
 .card.fancy {
   background-color: orange;
 }
 
 .card-title {
-  font-size: 20px;
-  color: solid black;
-  margin-bottom: 12px;
-}
+        font-size: 20px;
+        margin: 0 0 12px 0;
+        padding: 8px 10px;
+        border-radius: 8px;
+        color: var(--my-card-title-text-color, #000);
+        background-color: var(--my-card-title-background-color, pink);
+      }
 
 
 .card-text {
@@ -67,14 +74,14 @@ export class MyCard extends LitElement {
 }
 
 
-.card img {
-  width: 390px;
-  height: 200px;
-  max-width: 390px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 16px;
-}
+img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 16px;
+        display: block;
+      }
 
 
 a.button {
@@ -117,32 +124,47 @@ a.button {
     `;
   }
   
+    openChanged(e) {
+    // fires when <details> opens OR closes
+    if (e.target.getAttribute("open") !== null) {
+      this.fancy = true;
+    } else {
+      this.fancy = false;
+    }
+  }
+
 
   render() {
+     const bg = this.backgroundcolor?.trim();
+    const cardStyle = bg ? `background-color: ${bg};` : '';
+
     return html`
-    <div class="card">
-  <h2 class="card-title"><slot name="title">${this.title}</slot></h2>
+      <div class="card" style="${cardStyle}">
+        <h2 class="card-title">${this.title}</h2>
 
-  <p class="card-text">
-    ${this.description}
-  </p>
-
-  ${this.image
+        ${this.image
           ? html`<img src="${this.image}" alt="${this.alt || this.title}" />`
           : html``}
 
-        ${this.link
-          ? html`<a class="details-btn" href="${this.link}" target="_blank" rel="noopener">
-              ${this.button || "Details"}
-            </a>`
-          : html``}
-      </div>
-      <details ?open="${this.fancy}">
+        <p class="card-text">${this.description}</p>
+
+        <!-- ✅ Slot inside details/summary so HTML is flexible + collapsible -->
+        <details ?open="${this.fancy}" @toggle="${this.openChanged}">
   <summary>Description</summary>
-  <div>
-    <slot>${this.description}</slot>
+  <div class="details-body">
+    <slot></slot>
   </div>
 </details>
+
+
+        ${this.link
+          ? html`
+              <a class="details-btn" href="${this.link}" target="_blank" rel="noopener">
+                <button type="button">${this.button || 'Details'}</button>
+              </a>
+            `
+          : html``}
+      </div>
     `;
   }
 
@@ -154,7 +176,6 @@ a.button {
       link: { type: String },
       button: { type: String },
       fancy: { type: Boolean, reflect: true },
-      buttontext: { type: String },
       backgroundcolor: { type: String }
     };
   }
