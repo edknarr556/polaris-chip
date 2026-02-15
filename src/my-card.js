@@ -99,6 +99,23 @@ a.button {
 @media (min-width: 500px) and (max-width: 799px) {
   .details-btn {
     display: inline-block;
+     details summary {
+    text-align: left;
+    font-size: 20px;
+    padding: 8px 0;
+  }
+
+  details[open] summary {
+    font-weight: bold;
+  }
+  
+  details div {
+    border: 2px solid black;
+    text-align: left;
+    padding: 8px;
+    height: 70px;
+    overflow: auto;
+  }
   }
 }
 
@@ -150,11 +167,15 @@ a.button {
 
         <!-- ✅ Slot inside details/summary so HTML is flexible + collapsible -->
         <details ?open="${this.fancy}" @toggle="${this.openChanged}">
-  <summary>Description</summary>
+  <summary>
+    <slot name="summary">Description</slot>
+  </summary>
+
   <div class="details-body">
     <slot></slot>
   </div>
 </details>
+
 
 
         ${this.link

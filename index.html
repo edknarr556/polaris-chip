@@ -25,8 +25,8 @@
       --my-card-title-background-color: orange;
       --my-card-title-text-color: green;
       --my-card-background-color: white;
-    
     }
+    
 
     my-card.second-card {
       margin: 16px;
@@ -84,8 +84,15 @@
   link="https://hax.psu.edu/"
   button="Shaq Details"
   backgroundcolor="white"
-
-></my-card>
+  
+>
+<span slot="summary">
+    Team Description
+  </span>
+  <p>
+    This is a cool description.
+  </p>
+</my-card>
 
 <my-card
 class="second-card"
@@ -97,7 +104,14 @@ class="second-card"
   link="https://hax.psu.edu/"
   button="Details"
   backgroundcolor="lightblue"
-></my-card>
+>
+<span slot="summary">
+    Team Description
+  </span>
+  <p>
+    This is a cool description.
+  </p>
+</my-card>
 
 <my-card
 class="third-card"
@@ -107,7 +121,14 @@ class="third-card"
   alt="canes"
   link="https://hax.psu.edu/"
   button="Details"
-></my-card>
+>
+<span slot="summary">
+    Team Description
+  </span>
+  <p>
+    This is a cool description.
+  </p>
+</my-card>
 
 <my-card
 class="fourth-card"
@@ -118,7 +139,14 @@ class="fourth-card"
   alt="Football"
   link="https://www.nfl.com/"
   button="Details"
-></my-card>
+>
+<span slot="summary">
+    Team Description
+  </span>
+  <p>
+    This is a cool description.
+  </p>
+</my-card>
 
 <my-card
 class="fifth-card"
@@ -127,7 +155,14 @@ fancy="true"
   description="no picture card."
   link="https://psu.edu/"
   button="Details"
-></my-card>
+>
+<span slot="summary">
+    Team Description
+  </span>
+  <p>
+    This is a cool description.
+  </p>
+</my-card>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
