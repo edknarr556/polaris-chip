@@ -75,7 +75,7 @@ export class MyCard extends LitElement {
 }
 
 
-img {
+.meme-maker {
         width: 100%;
         height: 200px;
         object-fit: cover;
@@ -134,7 +134,7 @@ a.button {
     font-size: 0.95px;
   }
 
-  .card img {
+  .meme-maker {
     width: 100%;
     height: 160px;
   }
@@ -161,7 +161,7 @@ a.button {
         <h2 class="card-title">${this.title}</h2>
 
         ${this.image
-          ? html`<img src="${this.image}" alt="${this.alt || this.title}" />`
+          ? html`<meme-maker src="${this.image}" alt="${this.alt || this.title}" />`
           : html``}
 
         <p class="card-text">${this.description}</p>
