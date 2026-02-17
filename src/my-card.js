@@ -44,14 +44,15 @@ export class MyCard extends LitElement {
       }
   
       
-           .card {
-        max-width: 400px;
+    .card {
+        max-width: 100%;
+        height: 520px;
         border: 1px solid #000;
         border-radius: 12px;
         padding: 16px;
         background-color: var(--my-card-background-color, #fff);
         box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.25);
-      }
+      }       
 
 .card.fancy {
   background-color: orange;
@@ -75,7 +76,7 @@ export class MyCard extends LitElement {
 }
 
 
-.meme-maker {
+.card-meme-maker {
         width: 100%;
         height: 200px;
         object-fit: cover;
@@ -134,9 +135,10 @@ a.button {
     font-size: 0.95px;
   }
 
-  .meme-maker {
+  .card-meme-maker {
     width: 100%;
     height: 160px;
+    object-fit: cover;
   }
 }
     `;
@@ -160,9 +162,14 @@ a.button {
       <div class="card" style="${cardStyle}">
         <h2 class="card-title">${this.title}</h2>
 
-        ${this.image
-          ? html`<meme-maker src="${this.image}" alt="${this.alt || this.title}" />`
-          : html``}
+        <div class="media">
+        <meme-maker
+          image-url="${this.image}"
+          top-text=""
+          bottom-text="is awesome"
+          alt="${this.alt}"
+        ></meme-maker>
+        </div>
 
         <p class="card-text">${this.description}</p>
 
